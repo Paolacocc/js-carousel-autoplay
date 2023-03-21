@@ -19,23 +19,6 @@ for (let i = 0; i < imgArray.length; i++) {
     sliderItems.innerHTML += slideImg;    
 }
 
-//faccio scorrere le immagini in automatico
-let slides = 0;
- showSlide();
- function showSlide() {
-    let i;
-     const sliderItems = document.querySelector('.slider-items');
-     for (i = 0; i < sliderItems.length; i++){
-         sliderItems[i].style.display = "none";
-     }
-     slides++;
-     if (slides > sliderItems.length) {
-         slides = 1;
-     }
-    
-    sliderItems = setTimeout(slides, 3000);
- }
-
 
 //stato iniziale
 const items = document.getElementsByClassName("item");
@@ -85,5 +68,22 @@ upBtn.addEventListener("click", function(){
         upBtn.classList.add("hidden")
     }
 })
+
+// init intervallo
+let interval = setInterval(autoPlay, 2000);
+
+function autoPlay (){
+    upBtn.classList.remove("hidden")
+    //si blocca all'ultima immagine
+    if (activeStatus < imgArray.length) {
+    // rimuovo active - aumento active - do active al successivo
+    items[activeStatus].classList.remove('active');
+    activeStatus++;  
+   if (activeStatus === imgArray.length) {
+    activeStatus = 0;
+   }
+   items[activeStatus].classList.add('active')
+}
+}
 
 
